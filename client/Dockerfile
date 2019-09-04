@@ -7,6 +7,8 @@ COPY package*.json /client/
 # install dependencies
 RUN npm install
 # Copy the current directory contents into the container at /client
+# Consider NOT doing this for development
+# Also, may want to set any Node ENV vars in here as well.
 COPY . /client/
 # Make port 3000 available to the world outside this container
 EXPOSE 3000
