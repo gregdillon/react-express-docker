@@ -1,4 +1,4 @@
-version: "2"
+version: "3.3"
 services:
     client:
         image: mhart/alpine-node:latest
@@ -27,6 +27,8 @@ services:
         networks:
             - webappnetwork
         build: ./api
+        environment:
+            WAIT_HOSTS: mongodb:27017
     mongodb:
         image: mongo
         restart: always
