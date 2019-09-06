@@ -1,16 +1,5 @@
-version: "3.3"
+version: "2"
 services:
-    mongodb:
-        image: mongo
-        restart: always
-        container_name: mongodb
-        volumes:
-            - ./data/mongodb:/data/db
-        ports:
-            - 27017:27017
-        networks:
-            - webappnetwork
-        hostname: mongodb
     client:
         image: mhart/alpine-node:latest
         restart: always
@@ -32,17 +21,21 @@ services:
             - "9000:9000"
         volumes:
             - ./api:/api
+            - /api/node_modules
         depends_on:
             - mongodb
         networks:
             - webappnetwork
-        links:
-            - mongodb
         build: ./api
-        environment:
-            WAIT_HOSTS: mongodb:27017
+    mongodb:
+        image: mongo
+        restart: always
+        container_name: mongodb
+        ports:
+            - 27017:27017
+        networks:
+            - webappnetwork
+        command: mongod --port 27017
 networks:
     webappnetwork:
         driver: bridge
-volumes:
-  data:
