@@ -35,6 +35,7 @@ services:
             - 27017:27017
         networks:
             - webappnetwork
+        command: mongod --port 27017
 networks:
     webappnetwork:
         driver: bridge
